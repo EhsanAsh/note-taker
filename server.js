@@ -7,11 +7,13 @@
 // importing essential modules
 const express = require('express');
 const app = express();
-const port = 3000;
 const path = require('path');
+const { customLog } = require('./middleware/customLog.js');
 const api = require('./routes/notes.js');
+const port = 3000;
 
-// middlewares for the application 
+// middlewares for the application
+app.use(customLog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.json(__dirname, 'public')));
@@ -19,7 +21,6 @@ app.use('/api', api);
 
 // routes for the application
 app.get('/notes', (req, res) => {
-  console.log(`${req.method} request received for notes.html`);
   res.sendFile(path.join(__dirname, 'public/notes.html'));
 });
 
