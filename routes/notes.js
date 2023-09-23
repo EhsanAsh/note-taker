@@ -13,7 +13,23 @@ notes.get('/', (req, res) => {
 
 // POST Route for a new note
 notes.post('/', (req, res) => { 
+
   console.log(req.body);
+
+  const { title, text } = req.body;
+
+  if (req.body) {
+    const newNote = { title, text, id: uuidv4(), };
+    readAndAppend(newNote, '/db/db.json');
+    const response = {
+      status: 'Note added successfully 🚀',
+      body: newNote,
+    };
+    res.json(response);
+  } else {
+    res.error('Error in adding note');
+  }
+
 });
 
 module.exports = notes;
