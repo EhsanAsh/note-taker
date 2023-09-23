@@ -10,3 +10,9 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const api = require('./routes/notes.js');
+
+// middlewares for the application 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.json(__dirname, 'public')));
+app.use('/api', api);
