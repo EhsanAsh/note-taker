@@ -16,16 +16,16 @@ const port = 3000;
 app.use(customLog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.json(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', api);
 
 // routes for the application
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/notes.html'));
+  res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
 app.get('*', (req, res) => { 
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 // listening on port 3000
