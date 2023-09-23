@@ -16,3 +16,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.json(__dirname, 'public')));
 app.use('/api', api);
+
+// routes for the application
+app.get('/notes', (req, res) => {
+  console.log(`${req.method} request received for notes.html`);
+  res.sendFile(path.join(__dirname, 'public/notes.html'));
+});
+
+app.get('*', (req, res) => { 
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
+// listening on port 3000
+app.listen(port, () => console.log(`App listening at http://localhost:${port} 🚀`));
