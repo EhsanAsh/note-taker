@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 
 // GET Route for retrieving all the notes
 notes.get('/', (req, res) => { 
-  readFromFile('/db/db.json').then((data) => res.json(JSON.parse(data)));
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // POST Route for a new note
@@ -20,7 +20,7 @@ notes.post('/', (req, res) => {
 
   if (req.body) {
     const newNote = { title, text, id: uuidv4(), };
-    readAndAppend(newNote, '/db/db.json');
+    readAndAppend(newNote, './db/db.json');
     const response = {
       status: 'Note added successfully 🚀',
       body: newNote,
