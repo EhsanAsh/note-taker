@@ -1,3 +1,4 @@
+// Desc: Custom log middleware for logging requests to the console. it logs the request method, path, and time of the request.
 const customLog = (req, res, next) => {
 
   const fgOrange = '\x1b[33m';
