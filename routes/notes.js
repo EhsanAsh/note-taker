@@ -11,6 +11,21 @@ notes.get('/', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
+// GET Route for a specific note using id
+notes.get('/:id', (req, res) => {
+
+  const noteId = req.params.id;
+
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      const result = json.filter((note) => note.id === noteId);
+      return result.length > 0 ? res.json(result) : res.json('No note with that id');
+    })
+    .catch((err) => console.error(err));
+
+});
+
 // POST Route for a new note
 notes.post('/', (req, res) => { 
 
