@@ -22,4 +22,27 @@ const readAndAppend = (content, src) => {
   });
 };
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+const readAndDelete = (id, file) => { 
+
+  fs.readFile(file, 'utf8', (err, data) => { 
+    if (err) {
+      console.error(`Error in reading file: ${err}`);
+    } else {
+
+      const parsedData = JSON.parse(data);
+      const noteIndex = parsedData.findIndex((note) => note.id === id);
+
+      if (noteIndex !== -1) {
+      // check if the note exists in the file and delete it.
+        parsedData.splice(noteIndex, 1);
+        writeToFile(file, parsedData);
+      } else {
+        console.error(`Error in deleting note with id: ${id}`);
+      }
+
+    }
+  });
+
+};
+
+module.exports = { readFromFile, writeToFile, readAndAppend, readAndDelete };
