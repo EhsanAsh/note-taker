@@ -1,5 +1,5 @@
 // Author: EhsanAsh
-// Last Modified: 9/25/2023
+// Last Modified: 9/24/2023
 // Purpose: This file is the main server file for the application. It sets up the server and the routes for the application.
 // It also sets up the middleware for the application.
 // Dependencies: express, path, routes/notes.js
@@ -10,7 +10,7 @@ const app = express();
 const path = require('path');
 const { customLog } = require('./middleware/customLog.js');
 const api = require('./routes/notes.js');
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // middlewares for the application
 app.use(customLog);
