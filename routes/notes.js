@@ -2,7 +2,7 @@
 
 const express = require('express');
 const notes = express.Router();
-const { readFromFile, readAndAppend } = require('../helpers/fsUtil');
+const { readFromFile, readAndAppend, readAndDelete } = require('../helpers/fsUtil');
 // Importing uuidv4 from uuid package to generate unique id for each note.
 const { v4: uuidv4 } = require('uuid');
 
@@ -29,6 +29,21 @@ notes.post('/', (req, res) => {
   } else {
     res.error('Error in adding note');
   }
+
+});
+
+// DELETE Route for a specific note using id and fsUtil.js helper file.
+notes.delete('/:id', (req, res) => { 
+
+  const noteId = req.params.id;
+
+  readAndDelete(noteId, './db/db.json');
+
+  const response = {
+    status: 'Note deleted successfully 🚀',
+    body: noteId,
+  };
+  res.json(response);
 
 });
 
