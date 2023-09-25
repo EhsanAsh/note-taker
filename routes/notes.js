@@ -7,12 +7,12 @@ const { readFromFile, readAndAppend, readAndDelete } = require('../helpers/fsUti
 const { v4: uuidv4 } = require('uuid');
 
 // GET Route for retrieving all the notes
-notes.get('/', (req, res) => { 
+notes.get('/notes', (req, res) => { 
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // GET Route for a specific note using id
-notes.get('/:id', (req, res) => {
+notes.get('/notes/:id', (req, res) => {
 
   const noteId = req.params.id;
 
@@ -27,7 +27,7 @@ notes.get('/:id', (req, res) => {
 });
 
 // POST Route for a new note
-notes.post('/', (req, res) => { 
+notes.post('/notes', (req, res) => { 
 
   console.log(req.body);
 
@@ -42,13 +42,13 @@ notes.post('/', (req, res) => {
     };
     res.json(response);
   } else {
-    res.error('Error in adding note');
+    res.status(500).json({ error: 'Note not added' });
   }
 
 });
 
 // DELETE Route for a specific note using id and fsUtil.js helper file.
-notes.delete('/:id', (req, res) => { 
+notes.delete('/notes/:id', (req, res) => { 
 
   const noteId = req.params.id;
 
